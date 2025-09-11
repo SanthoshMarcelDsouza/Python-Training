@@ -1,0 +1,144 @@
+def modify(x):                             # call by value = Immutable type int
+    x = x +10
+    print("inside the function: " , x)
+   
+a= 5
+modify(a)
+print("outsode function ", a)
+ 
+ 
+def result(lst):
+    lst.append(10)
+    print("inside function ", lst)
+   
+my_list = [1,2,3]
+result(my_list)
+print("outsode function ", my_list)
+ 
+ 
+def result(lst):
+    lst = [0,0,0,0]  # new list
+    print("inside function ", lst)
+   
+my_list = [1,2,3]
+result(my_list)
+print("outsode function ", my_list)
+ 
+ 
+ 
+# call by value:
+# a copy of actual paramter is apssed and the changes to the parameter inside the function do not affect the original variable.
+# call by reference:
+# a reference(address) to the actual paramter is passed. changes inside the function affect the original variable.
+ 
+def add(x,y):
+    return x+y
+print(add(2,4))
+ 
+add_lambda = lambda x,y: x+y    # single line expression
+print(add_lambda(10,20))
+ 
+nums = [2,3,4,5,7,8]
+sqaured = list(map(lambda x: x**2,nums))
+print(sqaured)
+ 
+even = list(filter(lambda x: x%2 == 0, nums))
+print(even)
+ 
+students = [
+    ('Viren',89),
+    ('Ravi',90),
+    ('Charlie',34)
+]
+ 
+sorted_a = sorted(students, key=lambda x: x[1])
+print(sorted_a)
+ 
+max_value = lambda x,y: x if x>y else y
+print(max_value(34,89))
+ 
+# Lmabda: 
+# it is a way to create small anonymous functions - functions without a name
+# lambda arguments : expression
+ 
+import math
+ 
+def check_prime(num):
+    if num <= 1:
+        return False
+    else:    
+        for i in range(2, int(math.sqrt(num)) + 1):
+            if num % i == 0:
+                return False  
+    return True
+ 
+ 
+lamda_prime_check = lambda x: check_prime(x)
+ 
+print(lamda_prime_check(10))
+print(lamda_prime_check(5))
+ 
+result = lambda n: n>1 and all(n%i !=0 for i in range(2, int( n**0.5)+1))
+print(result(4))
+print(result(17))
+print(result(31))
+ 
+
+
+nums = [89,34,56,67,23] 
+it = iter(nums)   # get iterator
+ 
+print(next(it))
+print(next(it))
+print(next(it))
+print(next(it))
+print(next(it))
+ 
+
+nums = [1,2,3,4]
+it = iter(nums)
+for i in range(0, len(nums)):
+    print(next(it))
+ 
+
+numbers = [1, 2, 3, 4, 5]
+
+iterator = iter(numbers)
+ 
+count = 0
+
+limit = 3
+ 
+while count < limit:
+
+    item = next(iterator)
+
+    print(item)
+
+    count += 1
+ 
+def count_down(n):
+    while n>0:
+        yield n
+        n = n-2
+        print("n ", n)
+       
+for i in count_down(5):
+    print(i)
+   
+   
+def somexample():
+    print("start generator")
+    yield 1
+    print("yielded 1, resuming")
+    yield 2
+    print("yielded 2, resuming")
+    yield 3
+    print("yielded 3, resuming")
+   
+gen = somexample()
+ 
+print("first next()", next(gen))
+print("second next()", next(gen))
+print("thrid next()", next(gen))
+ 

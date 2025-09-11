@@ -25,9 +25,59 @@
 # Outer block for file handling & re-raised exceptions
 
 
-try 
-    print("Enter the flight number:")
-    int fNo = 
+class FlightNotFoundError(Exception):
+    pass
+
+class SeatsUnavailableError(Exception):
+    pass
+
+
+try:    
+    file_path = open("Python_Assignments\\flights.txt", "r")
+    flightDetail = {}
+    file = None
+    try:
+        with open("Python_Assignments\\flights.txt", "r") as file:
+            for line in file:
+                data = line.strip().split()
+                flight_number, seats, price = data
+                flightDetail[flight_number] = {
+                "available_seats": int(seats),
+                "price": float(price)
+                }
+
+            print(flightDetail)
+    except FileNotFoundError:
+        print("File not found")
+
+    finally:
+        file.close()
+
+    flightNo = input("Please enter the flight number\n")       
+    if flightNo not in flightDetail:
+        raise FlightNotFoundError(f"Flight {flightNo} not found.")
+
+    reqd_tickets = int(input("Please enter number tickets you want\n"))
+    flight = flightDetail[flightNo]
+    if reqd_tickets > flight["available_seats"]:
+        raise SeatsUnavailableError("Not enough seats available.")
+
+    total_cost = reqd_tickets * flight["price"]
+    discount = total_cost / reqd_tickets
+
+    # Print booking details
+    print("\n--- Booking Confirmed ---")
+    print(f"Flight Number : {flightNo}")
+    print(f"Tickets Booked: {reqd_tickets}")
+    print(f"Price per Ticket: {flight['price']}")
+    print(f"Total Cost    : {total_cost}")
+    print(f"Discount per Ticket: {discount}")
+except ZeroDivisionError as e:
+    print('ZeroDivisionError', e)
+except ValueError as e:
+    print('ValueError:', e)            
+except Exception as e:
+    print('Exception occurred:', e)
 
 
 
